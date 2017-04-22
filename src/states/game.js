@@ -1,6 +1,7 @@
 /* globals __DEV__ */
 import Phaser from 'phaser'
-import George from '../sprites/george'
+import Player from '../sprites/player'
+import Planet from '../sprites/planet'
 
 export default class extends Phaser.State
 {
@@ -8,30 +9,30 @@ export default class extends Phaser.State
 
     preload()
     {
-        game.load.spritesheet('george-test', 'assets/images/george-test.png', 32, 32, 3);
+        game.load.spritesheet('derek', 'assets/images/derek.png', 16, 32, 1);
     }
 
     create()
     {
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
-        const bannerText = 'Hello World'
-        let banner = this.add.text(this.world.centerX, this.game.height - 80, bannerText)
-        banner.font = 'Bangers'
-        banner.padding.set(10, 16)
-        banner.fontSize = 40
-        banner.fill = '#77BFA3'
-        banner.smoothed = false
-        banner.anchor.setTo(0.5)
-
-        this.george = new George(
+        this.player = new Player(
             this.game,
             this.world.centerX,
             this.world.centerY,
-            'george-test'
+            'derek'
         );
 
-        this.game.add.existing(this.george);
+        this.planet = new Planet(
+            this.game,
+            this.world.centerX - 256,
+            this.world.centerY - 256,
+            'lawn'
+        );
+
+        this.game.add.existing(this.planet);
+        this.game.add.existing(this.player);
+        
 
 
         //  In this example we'll create 4 specific keys (up, down, left, right) and monitor them in our update function
@@ -44,7 +45,7 @@ export default class extends Phaser.State
     render()
     {
         if (__DEV__) {
-            this.game.debug.spriteInfo(this.george, 32, 32)
+            //this.game.debug.spriteInfo(this.player, 16, 16)
         }
     }
 }
