@@ -8,25 +8,21 @@ export default function (params, game) {
     let key = Object.assign(k, {phaserKey: game.input.keyboard.addKey(k.key)})
     keys.push(key)
 
-    let [u, d] = [`${k.name}UP`, `${k.name}DOWN`]
-    events[u] = new Event(u)
-    events[d] = new Event(d)
+    events[key.name] = new CustomEvent(key.name, {
+      detail: {
+        key: key.phaserKey
+      }
+    })
 
-    ctrl[k.name] = (p, r) => {
-      document.addEventListener(d, p)
-      document.addEventListener(u, r)
-    }
+    ctrl[k.name] = (f) => document.addEventListener(key.name, f)
 
     ctrl.update = () => {
       for (const k of keys) {
         if (k.phaserKey.isDown) {
-          document.dispatchEvent(events[d])
-        } else if (k.phaserKey.isUp) {
-          document.dispatchEvent(events[u])
+          document.dispatchEvent(events[k.name])
         }
       }
     }
   }
-
   return ctrl
 }
