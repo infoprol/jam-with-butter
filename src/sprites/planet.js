@@ -5,14 +5,15 @@ export default class Planet extends Phaser.Sprite {
     constructor (game, x, y, asset) {
         super(game, x, y, asset);
 
-        // pass this as argument
-        let noPlayers = 2;
+        // pass this arguments
+        let numPlayers = 3,
+            numPosts = 5;
 
         this.fences = new Set();
         this.territories = new Set();
 
-        for (let i = 0; i < noPlayers; i++) {
-            this.fences.add(new Fence(game, x, y, asset));
+        for (let i = 0; i < numPlayers; i++) {
+            this.fences.add(new Fence(game, x, y, asset, numPosts));
         }
 
         console.log(this.fences);
