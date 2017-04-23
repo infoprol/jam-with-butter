@@ -30,6 +30,7 @@ export default class CharacterController extends Phaser.Sprite
 
 
         this.ctrl.moveDown(() => {
+          console.log('down event')
             this.body.acceleration.y = this.settings.acceleration;
             //this.y++;
             this.play('walking');

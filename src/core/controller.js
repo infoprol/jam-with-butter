@@ -1,32 +1,31 @@
 import 'phaser'
 
 export default function (params, game) {
-  const keys = new WeakMap()
-  const events = new WeakMap()
+  const keys = []
+  const events = new Map()
   let ctrl = {}
   for (const k of params) {
     let key = Object.assign(k, {phaserKey: game.input.keyboard.addKey(k.key)})
-    keys.set(k.name, key)
+    keys.push(key)
 
-    let [u, d] = [`${k.name}UP`, `${k.name}DOWN`]
-    events.set(u, new Event(u))
-    events.set(d, new Event(d))
+    events.set(key, new CustomEvent(key.name, {
+      detail: {
+        key: key.phaserKey
+      }
+    }))
 
-    ctrl[k.name] = (p, r) => {
-      document.addEventListener(d, p)
-      document.addEventListener(u, r)
-    }
+    ctrl[k.name] = (f) => document.addEventListener(key.name, f)
+  }
 
-    ctrl.update = () => {
+  return Object.assign(ctrl, {
+    update: () => {
       for (const k of keys) {
+        console.log(k.phaserKey.isDown)
         if (k.phaserKey.isDown) {
-          document.dispatchEvent(events.get(d))
-        } else if (k.phaserKey.isUp) {
-          document.dispatchEvent(events.get(u))
+          console.log('dispathcin event')
+          document.dispatchEvent(events.get(k))
         }
       }
     }
-  }
-
-  return ctrl
+  })
 }
