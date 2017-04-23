@@ -10,8 +10,6 @@ export default class Planet extends Phaser.Sprite {
         let numPlayers = 5,
             numPosts = 11,
             planetRadius = 256;
-            
-        //let zenter = {x:game.world.centerX, y:game.world.centerY};
 
         
         let phases = [];
@@ -24,21 +22,9 @@ export default class Planet extends Phaser.Sprite {
         this.territories = new Set()
 
         
-        phases.forEach(phase =>
+        phases.forEach(phase => {
             this.fences.add(new Fence(game, {x:300, y:300}, phase, asset, numPosts, planetRadius))
-        );
-        //this.fences.add(new Fence(game, {x:300, y:300}, Math.PI / 2, asset, 5, 256))
-        //this.territories.add(new Territory(game, game.world.centerX + (i*20), game.world.centerY + (i*20), asset))
-
-        //for (let i = 0; i < numPlayers; i++) {
-        /*
-        //[0, Math.PI / 2, Math.PI, 3 * Math.PI / 2].forEach(phase =>  
-        [0].forEach(phase =>
-            this.fences.add(new Fence(game, {x,y}, phase, asset, numPosts, planetRadius))
-            //this.fences.add(new Fence(game, x, y, asset, numPosts))
-        )
-        */
-
+            this.territories.add(new Territory(game, game.world.centerX, game.world.centerY, phase))
+        })
     }
 }
-
