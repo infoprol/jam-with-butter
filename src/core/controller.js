@@ -20,7 +20,6 @@ export default function (params, game) {
   return Object.assign(ctrl, {
     update: () => {
       for (const k of keys) {
-        console.log(k.phaserKey.isDown)
         if (k.phaserKey.isDown) {
           console.log('dispathcin event')
           document.dispatchEvent(events.get(k))

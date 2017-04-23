@@ -24,6 +24,8 @@ export default class CharacterController extends Phaser.Sprite
         this.settings = settings;
         this.body.maxVelocity.setTo(this.settings.maxSpeed, this.settings.maxSpeed); // x, y
         this.body.drag.setTo(this.settings.drag, this.settings.drag); // x, y
+        this.body.bounce.setTo(1,1);
+        this.body.collideWorldBounds = true;
 
         this.anim = new Animation(animations, this);
         this.ctrl = new Controller(controlMap, this.game);

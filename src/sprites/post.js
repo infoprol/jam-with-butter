@@ -6,13 +6,14 @@ export default class Post extends Phaser.Sprite {
         this.x = x;
         this.y = y;
         game.physics.enable(this, Phaser.Physics.ARCADE);
-        Object.defineProperties(this.body, immovable, {
-            get: () => !this.held,
+        Object.defineProperty(this.body, 'immovable', {
+            get: () => !this.held
         });
         this.body.collideWorldBounds = true;
 
         this.anchor.setTo(0.5);
     }
+    update() {}
 }
 /**
  * Created by jhenley on 4/22/2017.
