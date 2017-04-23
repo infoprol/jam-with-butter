@@ -1,55 +1,32 @@
-// import 'phaser'
-
-// export default function (params, game) {
-//   const keys = []
-//   const events = new Map()
-//   let ctrl = {}
-//   for (const k of params) {
-//     let key = Object.assign(k, {phaserKey: game.input.keyboard.addKey(k.key)})
-//     keys.push(key)
-
-//     events.set(key, new CustomEvent(key.name, {
-//       detail: {
-//         key: key.phaserKey
-//       }
-//     }))
-
-//     ctrl[k.name] = (f) => document.addEventListener(key.name, f)
-//   }
-
-//   return Object.assign(ctrl, {
-//     update: () => {
-//       for (const k of keys) {
-//         console.log(k.phaserKey.isDown)
-//         if (k.phaserKey.isDown) {
-//           console.log('dispathcin event')
-//           document.dispatchEvent(events.get(k))
-//         }
-//       }
-//     }
-//   })
-// }
-
 import 'phaser'
-export default function (params, game) {
-  const keys   = []
-  const events = new WeakMap()
-  let ctrl     = {}
-  for (const k of params) {
-    events.set(k, new Event(k.name))
-    ctrl[k.name] = (f) => document.addEventListener(k.name, f)
-    keys.push(Object.assign(k, {phaserKey: game.input.keyboard.addKey(k.key)}))
-  }
-  return Object.assign(ctrl, {
-    update: () => {
-      for (const k of keys) {
-        if (k.phaserKey.isDown) {
-          let event = events.get(k)
-          event.key = k.phaserKey
 
-          document.dispatchEvent(event)
+export default function (params, game) {
+  const keys = new Map()
+  const events = {}
+  let ctrl = {}
+  for (const k of params) {
+    let key = Object.assign(k, {phaserKey: game.input.keyboard.addKey(k.key)})
+    keys.set(k.name, key)
+
+    let [u, d] = [`${k.name}UP`, `${k.name}DOWN`]
+    events[u] = new Event(u)
+    events[d] = new Event(d)
+
+    ctrl[k.name] = (p, r) => {
+      document.addEventListener(d, p)
+      document.addEventListener(u, r)
+    }
+
+    ctrl.update = () => {
+      for (const [k, { phaserKey }] of keys) {
+        if (phaserKey.isDown) {
+          document.dispatchEvent(events[d])
+        } else if (phaserKey.isUp) {
+          document.dispatchEvent(events[u])
         }
       }
     }
-  })
+  }
+
+  return ctrl
 }
