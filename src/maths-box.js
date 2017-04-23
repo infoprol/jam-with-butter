@@ -1,13 +1,8 @@
 
-
-
-
-
-
-export function distance([xi,yi], [xf,yf]) {
-    
-    const sos = Math.pow(xf - xi, 2) + Math.pow(yf - yi, 2);
-    return Math.sqrt(sos);
+export function distance([xi,yi], [xf,yf]) {    
+    return Math.sqrt(
+         Math.pow(xf - xi, 2) + Math.pow(yf - yi, 2)
+    );
 }
 
 export function partitionPoints([xi,yi], [xf,yf], n) {
@@ -22,5 +17,9 @@ export function partitionPoints([xi,yi], [xf,yf], n) {
     
     console.dir({coz,zin,nn}, {depth:null});
     
-    return nn.map(n => [coz * d * n, zin * d * n]);
+    return [
+        {x:xi, y:yi},
+        ...nn.map(n => [{x: coz * d * n + xi, y: zin * d * n + yi}]),
+        {x:xf, y:yf}
+    ];
 }
