@@ -13,7 +13,7 @@ export default class Fence {
         ];
         
         
-        //console.dir({x,y}, {depth:null});
+
 
         
         const pp = partitionPoints(
@@ -21,10 +21,17 @@ export default class Fence {
             [xf,yf],
             numPosts
         );
+
+        console.log('PP----');
+        console.log(pp);
+        console.log('End PP----');
         
         this.posts = new Set()
         for (let i = 0; i < pp.length; i++) {
-            let {x,y} = pp[i];
+            let {x,y} = pp[i]
+
+            console.log('create x/y: ' + x + '/' + y);
+
         	// change to x/y position of actual post position
         	this.posts.add(new FencePost(game, x, y, 'fencePost', numPosts))
         }

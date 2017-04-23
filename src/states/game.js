@@ -9,18 +9,22 @@ export default class extends Phaser.State
 
     preload()
     {
-        game.load.spritesheet('derek', 'assets/images/derek.png', 16, 32, 1);
+        game.load.spritesheet('matt', 'assets/images/matt.png', 16, 32, 3)
     }
 
     create()
     {
-        this.game.physics.startSystem(Phaser.Physics.ARCADE);
+        this.game.physics.startSystem(Phaser.Physics.ARCADE)
+
+        this.game.bottomLayer = game.add.group()
+        this.game.middleLayer = game.add.group()
+        this.game.topLayer = game.add.group()
 
         this.player = new Player(
             this.game,
             this.world.centerX,
             this.world.centerY,
-            'derek'
+            'matt'
         );
 
         this.planet = new Planet(
@@ -30,16 +34,16 @@ export default class extends Phaser.State
             'lawn'
         );
 
-        this.game.add.existing(this.planet);
-        this.game.add.existing(this.player);
+        this.game.bottomLayer.add(this.planet)
+        this.game.middleLayer.add(this.player)
         
 
 
         //  In this example we'll create 4 specific keys (up, down, left, right) and monitor them in our update function
-        this.upKey = this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
-        this.downKey = this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
-        this.leftKey = this.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
-        this.rightKey = this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+        this.upKey = this.game.input.keyboard.addKey(Phaser.Keyboard.UP)
+        this.downKey = this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN)
+        this.leftKey = this.game.input.keyboard.addKey(Phaser.Keyboard.LEFT)
+        this.rightKey = this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT)
     }
 
     render()

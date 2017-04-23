@@ -15,11 +15,10 @@ export function partitionPoints([xi,yi], [xf,yf], n) {
     const nn = [];
     for (let j=1; j< n+1; j++) nn.push(j);
     
-    console.dir({coz,zin,nn}, {depth:null});
     
     return [
         {x:xi, y:yi},
-        ...nn.map(n => [{x: coz * d * n + xi, y: zin * d * n + yi}]),
+        ...nn.map(n => { return {x: coz * d * n + xi, y: zin * d * n + yi}; }),
         {x:xf, y:yf}
     ];
 }

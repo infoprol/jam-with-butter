@@ -18,7 +18,7 @@ export default class Player extends CharacterController
         {
             name: 'walking',
             frames: [0, 1, 2],
-            fps: 8,
+            fps: 7,
             loop: true
         }];
 

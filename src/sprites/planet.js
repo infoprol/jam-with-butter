@@ -1,5 +1,6 @@
 import Phaser from 'phaser'
 import Fence from '../sprites/fence'
+import Territory from '../sprites/territory'
 
 export default class Planet extends Phaser.Sprite {
     constructor (game, x, y, asset) {
@@ -19,7 +20,8 @@ export default class Planet extends Phaser.Sprite {
         this.territories = new Set()
 
 
-        this.fences.add(new Fence(game, {x:300, y:300}, Math.PI / 2, asset, 5, 256));
+        this.fences.add(new Fence(game, {x:300, y:300}, Math.PI / 2, asset, 5, 256))
+        //this.territories.add(new Territory(game, game.world.centerX + (i*20), game.world.centerY + (i*20), asset))
 
         //for (let i = 0; i < numPlayers; i++) {
         /*
@@ -31,5 +33,7 @@ export default class Planet extends Phaser.Sprite {
         */
 
         console.log(this.fences)
+        console.log(this.territories)
     }
 }
+
