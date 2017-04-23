@@ -2,6 +2,7 @@
 import Phaser from 'phaser'
 import Player from '../sprites/player'
 import Planet from '../sprites/planet'
+import CenterPost from '../sprites/center-post'
 
 export default class extends Phaser.State
 {
@@ -16,10 +17,12 @@ export default class extends Phaser.State
     {
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
+
+
         this.player = new Player(
             this.game,
-            this.world.centerX,
-            this.world.centerY,
+            this.defaultPosition.x,
+            this.defaultPosition.y,
             'derek'
         );
 
@@ -32,6 +35,18 @@ export default class extends Phaser.State
 
         this.game.add.existing(this.planet);
         this.game.add.existing(this.player);
+        let postConfig = this.postConfig('tutorial');
+        this.posts = [];
+        for (let post in postConfig) {
+            this.posts.push(new Post(this.game, post.x, post.y, 'post'));
+            if (postConfig.indexOf(post) === postConfig.length / 2) {
+                this.posts.push(this.centerPost);
+            }
+        }
+
+        for (let post in this.posts) {
+            this.game.add.existing(post);
+        }
         
 
 
@@ -48,4 +63,27 @@ export default class extends Phaser.State
             //this.game.debug.spriteInfo(this.player, 16, 16)
         }
     }
+
+    postConfig(difficulty) {
+        switch (difficulty) {
+            case 'tutorial':
+                return [
+                    {
+                        x: this.defaultPosition.x + 100,
+                        y: this.defaultPosition.y
+                    },
+                    {
+                        x: this.defaultPosition.x - 100,
+                        y: this.defaultPosition.y
+                    }
+                ]
+        }
+    }
+
+    defaultPosition =  {
+        x: this.world.centerX,
+        y: this.world.centerY + 100
+    }
+
+    centerPost = new CenterPost(this.game, this.game.world.centerX, this.game.world.centerY, 'post');
 }
