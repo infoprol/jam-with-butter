@@ -9,7 +9,7 @@ export default class extends Phaser.State
 
     preload()
     {
-        game.load.spritesheet('matt', 'assets/images/matt.png', 16, 32, 3)
+        game.load.spritesheet('matt', 'assets/images/matt.png', 16, 32, 4)
     }
 
     create()

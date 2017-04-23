@@ -20,6 +20,12 @@ export default class Player extends CharacterController
             frames: [0, 1, 2],
             fps: 7,
             loop: true
+        },
+        {
+            name: 'idling',
+            frames: [0, 3],
+            fps: 2,
+            loop: true
         }];
 
 

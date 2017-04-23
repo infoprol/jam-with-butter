@@ -28,6 +28,8 @@ export default class CharacterController extends Phaser.Sprite
         this.anim = new Animation(animations, this)
         this.ctrl = new Controller(controlMap, this.game)
 
+        this.play('idling')
+
 
         this.ctrl.moveDown((e) => {
             this.body.acceleration.y = this.settings.acceleration
