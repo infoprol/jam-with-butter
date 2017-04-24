@@ -35,24 +35,32 @@ export default class CharacterController extends Phaser.Sprite
             this.body.acceleration.y = this.settings.acceleration
             //this.y++
             this.play('walking')
+        }, () => {
+          if (this.body.acceleration.y > 0) { this.body.acceleration.y = 0 }
         })
 
         this.ctrl.moveUp((e) => {
             this.body.acceleration.y = -this.settings.acceleration
             //this.y--
             this.play('walking')
+        }, () => {
+          if (this.body.acceleration.y < 0) { this.body.acceleration.y = 0 }
         })
 
         this.ctrl.moveLeft((e) => {
             this.body.acceleration.x = -this.settings.acceleration
             //this.x--
             this.play('walking')
+        }, () => {
+          if (this.body.acceleration.x < 0) { this.body.acceleration.x = 0 }
         })
 
         this.ctrl.moveRight((e) => {
             this.body.acceleration.x = this.settings.acceleration
             //this.x++
             this.play('walking')
+        }, () => {
+          if (this.body.acceleration.x > 0) { this.body.acceleration.x = 0 }
         })
     }
 

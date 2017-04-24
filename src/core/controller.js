@@ -16,14 +16,14 @@ export default function (params, game) {
       document.addEventListener(d, p)
       document.addEventListener(u, r)
     }
-
-    ctrl.update = () => {
-      for (const [k, { phaserKey }] of keys) {
-        if (phaserKey.isDown) {
-          document.dispatchEvent(events[d])
-        } else if (phaserKey.isUp) {
-          document.dispatchEvent(events[u])
-        }
+  }
+  ctrl.update = () => {
+    for (const [k, { phaserKey }] of keys) {
+      if (phaserKey.isDown) {
+        document.dispatchEvent(events[`${k}DOWN`])
+      } else
+      if (phaserKey.isUp) {
+        document.dispatchEvent(events[`${k}UP`])
       }
     }
   }

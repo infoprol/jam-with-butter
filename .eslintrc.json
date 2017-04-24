@@ -4,5 +4,5 @@
     "ecmaVersion": 6,
     "sourceType": "module"
   },
-  "indent": ["error", 4]
+  "indent": ["warn", 2]
 }
